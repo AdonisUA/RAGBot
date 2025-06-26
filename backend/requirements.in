@@ -1,0 +1,56 @@
+# Core Framework
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+
+# AI & ML
+openai
+google-generativeai
+anthropic
+openai-whisper
+torch
+torchaudio
+
+# Audio Processing
+librosa
+soundfile
+pydub
+
+# Web & Networking
+websockets
+httpx
+aiofiles
+
+# Data & Storage
+redis
+aioredis
+sqlalchemy
+alembic
+
+# Utilities
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+python-dotenv
+
+# Logging & Monitoring
+structlog
+prometheus-client
+sentry-sdk[fastapi]
+
+# Development & Testing
+pytest
+pytest-asyncio
+pytest-cov
+black
+isort
+flake8
+mypy
+
+# Optional Dependencies
+transformers
+sentence-transformers
+chromadb
+celery
+broadcaster[redis]==0.3.1

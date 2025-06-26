@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ChatBot - Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .message-user { @apply bg-blue-600 text-white ml-auto; }
+        .message-assistant { @apply bg-white text-gray-900 mr-auto border; }
+        .message-bubble { @apply max-w-xs lg:max-w-md px-4 py-2 rounded-lg break-words; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-4xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                        💬
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-semibold text-gray-900">AI ChatBot</h1>
+                        <p class="text-sm text-gray-500">Универсальный AI-ассистент</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <!-- Provider Selector -->
+                    <select id="providerSelect" class="px-3 py-2 bg-white border border-gray-200 rounded-lg">
+                        <option value="demo">🤖 Demo Mode</option>
+                        <option value="openai">🤖 OpenAI GPT</option>
+                        <option value="gemini">✨ Google Gemini</option>
+                        <option value="anthropic">🧠 Anthropic Claude</option>
+                    </select>
+
+                    <button id="voiceBtn" class="px-3 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300">
+                        🎤 Голос
+                    </button>
+
+                    <button class="px-3 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300">
+                        ⚙️
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-6">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <!-- Chat Container -->
+            <div id="chatContainer" class="h-96 overflow-y-auto p-4">
+                <div class="flex justify-start mb-4">
+                    <div class="flex items-end space-x-2 max-w-xs lg:max-w-md">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-2">
+                            🤖
+                        </div>
+                        <div class="bg-white text-gray-900 border border-gray-200 shadow-sm rounded-lg px-4 py-2">
+                            <div class="break-words">
+                                Привет! Я ваш AI-ассистент. Как дела? Чем могу помочь?
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1">
+                                сейчас
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t bg-gray-50 p-4">
+                <div class="flex space-x-3">
+                    <div class="flex-1">
+                        <textarea
+                            id="messageInput"
+                            placeholder="Введите сообщение..."
+                            class="w-full px-3 py-2 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            rows="1"
+                        ></textarea>
+                    </div>
+
+                    <button
+                        id="sendBtn"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                    >
+                        📤
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div class="mt-4 text-center">
+            <p class="text-sm text-gray-500" id="statusText">
+                Демо режим • AI: demo • Готов к работе
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // Demo responses
+        const demoResponses = [
+            "Отличный вопрос! В демо-режиме я показываю, как работает интерфейс.",
+            "Проект поддерживает OpenAI GPT, Google Gemini и Anthropic Claude!",
+            "Голосовой ввод работает через Whisper для распознавания речи.",
+            "Архитектура модульная - легко добавлять новые AI провайдеры.",
+            "Docker развертывание позволяет запустить все одной командой!",
+            "Это production-ready решение с мониторингом и логированием.",
+            "Frontend написан на React + TypeScript с Tailwind CSS.",
+            "Backend использует FastAPI с поддержкой WebSocket.",
+            "Память разговоров сохраняется в JSON файлах или Redis.",
+            "Можно переключаться между AI провайдерами в реальном времени!"
+        ];
+
+        let messageCount = 1;
+        let currentProvider = 'demo';
+
+        // Elements
+        const chatContainer = document.getElementById('chatContainer');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const providerSelect = document.getElementById('providerSelect');
+        const statusText = document.getElementById('statusText');
+        const voiceBtn = document.getElementById('voiceBtn');
+
+        // Add message to chat
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`;
+
+            const time = new Date().toLocaleTimeString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            messageDiv.innerHTML = `
+                <div class="flex ${isUser ? 'flex-row-reverse' : 'flex-row'} items-end space-x-2 max-w-xs lg:max-w-md">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full ${isUser ? 'bg-blue-600 ml-2' : 'bg-gray-200 mr-2'} flex items-center justify-center">
+                        ${isUser ? '👤' : '🤖'}
+                    </div>
+                    <div class="px-4 py-2 rounded-lg ${isUser ? 'bg-blue-600 text-white' : 'bg-white text-gray-900 border border-gray-200 shadow-sm'}">
+                        <div class="break-words">${content}</div>
+                        <div class="text-xs ${isUser ? 'text-blue-100' : 'text-gray-500'} mt-1">${time}</div>
+                    </div>
+                </div>
+            `;
+
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            messageCount++;
+        }
+
+        // Add typing indicator
+        function addTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing';
+            typingDiv.className = 'flex justify-start mb-4';
+            typingDiv.innerHTML = `
+                <div class="flex items-end space-x-2 max-w-xs lg:max-w-md">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-2">
+                        🤖
+                    </div>
+                    <div class="bg-white border border-gray-200 shadow-sm rounded-lg px-4 py-3">
+                        <div class="flex space-x-1">
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0ms"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Remove typing indicator
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typing');
+            if (typing) typing.remove();
+        }
+
+        // Send message
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, true);
+            messageInput.value = '';
+
+            // Disable input
+            sendBtn.disabled = true;
+            messageInput.disabled = true;
+
+            // Add typing indicator
+            addTypingIndicator();
+
+            // Simulate AI response delay
+            setTimeout(() => {
+                removeTypingIndicator();
+
+                // Get random response
+                const response = demoResponses[Math.floor(Math.random() * demoResponses.length)];
+                addMessage(response);
+
+                // Re-enable input
+                sendBtn.disabled = false;
+                messageInput.disabled = false;
+                messageInput.focus();
+
+                // Update status
+                updateStatus();
+            }, Math.random() * 2000 + 1000); // 1-3 seconds
+        }
+
+        // Update status
+        function updateStatus() {
+            const providerNames = {
+                'demo': 'Demo',
+                'openai': 'OpenAI GPT',
+                'gemini': 'Google Gemini',
+                'anthropic': 'Anthropic Claude'
+            };
+
+            statusText.textContent = `Демо режим • AI: ${providerNames[currentProvider]} • Сообщений: ${messageCount}`;
+        }
+
+        // Event listeners
+        sendBtn.addEventListener('click', sendMessage);
+
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        providerSelect.addEventListener('change', (e) => {
+            currentProvider = e.target.value;
+            updateStatus();
+
+            // Show provider switch message
+            addMessage(`Переключился на провайдера: ${e.target.options[e.target.selectedIndex].text}`);
+        });
+
+        voiceBtn.addEventListener('click', () => {
+            alert('Голосовой ввод доступен в полной версии с Whisper!');
+        });
+
+        // Initialize
+        updateStatus();
+        messageInput.focus();
+    </script>
+</body>
+</html>

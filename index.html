@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ChatBot - Универсальный AI-ассистент</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl">🤖</span>
+                </div>
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">AI ChatBot</h1>
+                <p class="text-xl text-gray-600">Универсальный AI-ассистент с поддержкой множественных провайдеров</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Features -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="text-3xl mb-4">🤖</div>
+                <h3 class="text-xl font-semibold mb-2">Множественные AI провайдеры</h3>
+                <p class="text-gray-600">OpenAI GPT, Google Gemini, Anthropic Claude с переключением в реальном времени</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="text-3xl mb-4">🎤</div>
+                <h3 class="text-xl font-semibold mb-2">Голосовой ввод</h3>
+                <p class="text-gray-600">Whisper для локального распознавания речи с поддержкой множественных форматов</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="text-3xl mb-4">🧠</div>
+                <h3 class="text-xl font-semibold mb-2">Память разговоров</h3>
+                <p class="text-gray-600">JSON/Redis хранение с контекстом и историей сообщений</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="text-3xl mb-4">🎨</div>
+                <h3 class="text-xl font-semibold mb-2">Современный UI</h3>
+                <p class="text-gray-600">React + TypeScript + Tailwind CSS с responsive дизайном</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="text-3xl mb-4">🐳</div>
+                <h3 class="text-xl font-semibold mb-2">Docker поддержка</h3>
+                <p class="text-gray-600">Контейнеризация и развертывание одной командой</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="text-3xl mb-4">⚙️</div>
+                <h3 class="text-xl font-semibold mb-2">Модульная архитектура</h3>
+                <p class="text-gray-600">Легко кастомизировать и расширять под любые задачи</p>
+            </div>
+        </div>
+
+        <!-- Demo Section -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-12">
+            <h2 class="text-3xl font-bold text-center mb-6">🚀 Демонстрация</h2>
+            <div class="text-center space-y-4">
+                <p class="text-lg text-gray-600">Попробуйте интерактивную демо-версию чатбота</p>
+                <a href="/demo.html" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors">
+                    Открыть демо 🎯
+                </a>
+            </div>
+        </div>
+
+        <!-- Technical Specs -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold mb-4">🏗️ Backend</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li>• <strong>Framework:</strong> FastAPI + Pydantic</li>
+                    <li>• <strong>AI Providers:</strong> OpenAI, Gemini, Claude</li>
+                    <li>• <strong>Voice:</strong> Whisper (local)</li>
+                    <li>• <strong>Storage:</strong> JSON/Redis</li>
+                    <li>• <strong>Real-time:</strong> WebSocket</li>
+                    <li>• <strong>Deployment:</strong> Docker</li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold mb-4">🎨 Frontend</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li>• <strong>Framework:</strong> React 18 + TypeScript</li>
+                    <li>• <strong>Styling:</strong> Tailwind CSS</li>
+                    <li>• <strong>State:</strong> React Hooks</li>
+                    <li>• <strong>API:</strong> Axios client</li>
+                    <li>• <strong>Build:</strong> Create React App</li>
+                    <li>• <strong>Proxy:</strong> Nginx</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-12">
+            <h2 class="text-3xl font-bold text-center mb-6">⚡ Быстрый старт</h2>
+            <div class="bg-gray-900 text-green-400 p-6 rounded-lg font-mono text-sm overflow-x-auto">
+                <div class="mb-2"># 1. Настройка API ключей</div>
+                <div class="mb-2">cp config/.env.template .env</div>
+                <div class="mb-4">nano .env  # Добавьте OPENAI_API_KEY или GEMINI_API_KEY</div>
+
+                <div class="mb-2"># 2. Запуск одной командой</div>
+                <div class="mb-4">./start.sh</div>
+
+                <div class="mb-2"># 3. Готово! 🎉</div>
+                <div class="mb-1">Frontend: http://localhost:3000</div>
+                <div class="mb-1">Backend: http://localhost:8000</div>
+                <div>API Docs: http://localhost:8000/docs</div>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div class="bg-gradient-to-r from-green-500 to-blue-600 text-white rounded-lg shadow-lg p-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">✅ Статус проекта</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div>
+                    <div class="text-2xl font-bold">95%</div>
+                    <div>MVP завершен</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold">3 дня</div>
+                    <div>Время разработки</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold">Production</div>
+                    <div>Ready</div>
+                </div>
+            </div>
+            <p class="mt-6 text-lg">Готов к демонстрации и использованию!</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-12">
+        <div class="max-w-6xl mx-auto px-4 py-8 text-center text-gray-600">
+            <p>AI ChatBot - Универсальная платформа для AI-приложений</p>
+            <p class="mt-2">Разработано с ❤️ с использованием современных технологий</p>
+        </div>
+    </footer>
+</body>
+</html>

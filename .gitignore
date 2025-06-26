@@ -1,0 +1,81 @@
+# Node modules
+node_modules/
+frontend/node_modules/
+
+# Python virtual environment
+venv/
+AIBot/venv/
+*.pyc
+__pycache__/
+
+# Logs
+logs/
+*.log
+
+# Environment files
+.env
+config/.env.template
+
+# Build outputs
+dist/
+build/
+out/
+
+# IDE files
+.vscode/
+.idea/
+
+# Misc
+.DS_Store
+*.swp
+
+# Kubernetes and Minikube files
+.minikube/
+minikube-linux-amd64
+.minikube/cache/
+
+# Ignore all files in AsyncMock except JSON files
+AsyncMock/*
+!AsyncMock/**/*.json
+
+# Ignore all node_modules in subdirectories
+**/node_modules/
+
+# Ignore Python bytecode and cache
+**/__pycache__/
+**/*.py[cod]
+
+# Ignore coverage reports
+coverage/
+*.cover
+*.coverage
+*.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.lcov
+
+# Ignore Docker files
+docker-compose.override.yml
+docker-compose.override.yml.example
+
+# Ignore build artifacts
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Ignore VSCode workspace storage
+.vscode-test/
+
+# Ignore pre-commit cache
+.pre-commit-cache/
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.orig
+*.rej

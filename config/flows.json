@@ -1,0 +1,233 @@
+{
+  "chat_flow": {
+    "max_retries": 3,
+    "timeout_seconds": 30,
+    "fallback_response": "Извините, произошла ошибка. Попробуйте еще раз.",
+    "context_window": 4000,
+    "response_streaming": true,
+    "auto_save_conversation": true,
+    "typing_indicator": true,
+    "message_validation": {
+      "max_length": 4000,
+      "min_length": 1,
+      "forbidden_patterns": [],
+      "sanitize_input": true
+    },
+    "ai_settings": {
+      "system_prompt_template": "default",
+      "response_format": "markdown",
+      "include_timestamp": true,
+      "include_metadata": false
+    }
+  },
+
+  "voice_flow": {
+    "auto_send_after_transcription": true,
+    "silence_threshold_seconds": 2.0,
+    "noise_reduction_enabled": true,
+    "voice_activity_detection": true,
+    "supported_formats": ["wav", "mp3", "m4a", "ogg"],
+    "max_file_size_mb": 25,
+    "recording_settings": {
+      "sample_rate": 16000,
+      "channels": 1,
+      "bit_depth": 16,
+      "auto_gain_control": true
+    },
+    "transcription_settings": {
+      "language": "auto",
+      "task": "transcribe",
+      "temperature": 0.0,
+      "best_of": 1,
+      "beam_size": 5
+    },
+    "ui_settings": {
+      "show_waveform": true,
+      "show_timer": true,
+      "visual_feedback": true,
+      "haptic_feedback": false
+    }
+  },
+
+  "memory_flow": {
+    "auto_save_enabled": true,
+    "compression_enabled": false,
+    "cleanup_interval_hours": 24,
+    "max_conversations_per_session": 100,
+    "export_formats": ["json", "txt", "csv", "markdown"],
+    "retention_policy": {
+      "max_age_days": 90,
+      "max_total_conversations": 1000,
+      "auto_archive": true,
+      "archive_threshold_days": 30
+    },
+    "search_settings": {
+      "enabled": true,
+      "index_content": true,
+      "fuzzy_search": true,
+      "search_history": true
+    },
+    "privacy_settings": {
+      "anonymize_data": false,
+      "encrypt_storage": false,
+      "auto_delete_sensitive": false
+    }
+  },
+
+  "ui_flow": {
+    "theme": "auto",
+    "animations_enabled": true,
+    "sound_effects_enabled": false,
+    "haptic_feedback_enabled": false,
+    "accessibility": {
+      "high_contrast": false,
+      "large_text": false,
+      "screen_reader_support": true,
+      "keyboard_navigation": true
+    },
+    "layout": {
+      "sidebar_enabled": true,
+      "sidebar_collapsed": false,
+      "message_timestamps": true,
+      "message_avatars": true,
+      "compact_mode": false
+    },
+    "chat_settings": {
+      "auto_scroll": true,
+      "scroll_to_bottom_on_new_message": true,
+      "show_typing_indicator": true,
+      "message_grouping": true,
+      "max_messages_display": 100
+    },
+    "input_settings": {
+      "placeholder_text": "Введите сообщение...",
+      "send_on_enter": true,
+      "shift_enter_new_line": true,
+      "auto_resize": true,
+      "max_height": 200
+    }
+  },
+
+  "performance_flow": {
+    "caching": {
+      "enabled": true,
+      "cache_responses": true,
+      "cache_transcriptions": true,
+      "cache_ttl_seconds": 3600,
+      "max_cache_size_mb": 100
+    },
+    "optimization": {
+      "lazy_loading": true,
+      "virtual_scrolling": true,
+      "image_compression": true,
+      "bundle_splitting": true
+    },
+    "monitoring": {
+      "performance_metrics": true,
+      "error_tracking": true,
+      "usage_analytics": false,
+      "debug_mode": false
+    }
+  },
+
+  "security_flow": {
+    "input_validation": {
+      "sanitize_html": true,
+      "validate_file_types": true,
+      "scan_for_malware": false,
+      "rate_limiting": true
+    },
+    "privacy": {
+      "log_conversations": true,
+      "log_user_actions": false,
+      "anonymize_logs": true,
+      "gdpr_compliance": true
+    },
+    "authentication": {
+      "required": false,
+      "session_timeout_minutes": 60,
+      "max_sessions_per_user": 5,
+      "password_requirements": {
+        "min_length": 8,
+        "require_uppercase": true,
+        "require_lowercase": true,
+        "require_numbers": true,
+        "require_symbols": false
+      }
+    }
+  },
+
+  "integration_flow": {
+    "webhooks": {
+      "enabled": false,
+      "endpoints": [],
+      "retry_attempts": 3,
+      "timeout_seconds": 10
+    },
+    "apis": {
+      "external_apis_enabled": false,
+      "api_timeout_seconds": 30,
+      "api_retry_attempts": 2
+    },
+    "plugins": {
+      "enabled": false,
+      "auto_load": true,
+      "plugin_directory": "./plugins",
+      "sandbox_mode": true
+    }
+  },
+
+  "development_flow": {
+    "debug_mode": true,
+    "verbose_logging": true,
+    "mock_services": {
+      "mock_ai_responses": false,
+      "mock_voice_transcription": false,
+      "mock_external_apis": false
+    },
+    "testing": {
+      "auto_test_mode": false,
+      "test_data_generation": false,
+      "performance_testing": false
+    },
+    "hot_reload": {
+      "enabled": true,
+      "watch_config_files": true,
+      "auto_restart_on_change": true
+    }
+  },
+
+  "notification_flow": {
+    "enabled": true,
+    "types": {
+      "success_notifications": true,
+      "error_notifications": true,
+      "warning_notifications": true,
+      "info_notifications": false
+    },
+    "display": {
+      "position": "top-right",
+      "duration_seconds": 5,
+      "max_notifications": 3,
+      "auto_dismiss": true
+    },
+    "sounds": {
+      "notification_sound": false,
+      "error_sound": false,
+      "success_sound": false
+    }
+  },
+
+  "backup_flow": {
+    "auto_backup": false,
+    "backup_interval_hours": 24,
+    "backup_location": "./backups",
+    "backup_format": "json",
+    "compression": true,
+    "encryption": false,
+    "retention": {
+      "max_backups": 30,
+      "auto_cleanup": true
+    }
+  }
+}
